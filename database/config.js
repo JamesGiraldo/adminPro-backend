@@ -5,7 +5,13 @@ const mongoose = require('mongoose');
 
 const dbContection = async() => {
     try {
-        await mongoose.connect(`${ process.env.BD_CNN }`, {
+        await mongoose.connect(process.env.BD_CNN, {
+            // Recomendaciones de consola por culpa de algunas obsolescensia de MOngoose
+            useFindAndModify: false,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        }, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true
@@ -15,9 +21,8 @@ const dbContection = async() => {
         console.log(error);
         throw new Error('Error a la hora de iniciar la BD ver logs');
     }
-
-}
+};
 
 module.exports = {
     dbContection: dbContection
-}
+};
