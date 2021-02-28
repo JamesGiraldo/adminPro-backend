@@ -8,16 +8,25 @@ const { generarJWT } = require('../helpers/jwt');
 // Get usuarios
 const getUsuarios = async(req, res) => {
 
+    // recibir el query o parametro de paginar
+    const desde = Number(req.query.desde) || 0;
+
     // para evitar posibles errores
     try {
-        // Consultar todos los usuarios
-        const usuarios = await Usuario.find({}, 'nombre email role google');
+        // Consultar todos los usuarios de una forma simultanea         
+        const [usuarios, total] = await Promise.all([
+            Usuario.find({}, 'nombre email img role google')
+            .skip(desde)
+            .limit(5),
 
+            Usuario.countDocuments()
+        ]);
         // responder con un ok 
         res.json({
             ok: true,
             usuarios: usuarios,
-            uid: req.uid
+            uid: req.uid,
+            total: total
         });
 
         // Si lapetición esta mal mostrar el error.

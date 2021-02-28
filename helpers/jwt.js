@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 
+/** generar token recibiendo el id correspondiente */
 const generarJWT = (uid) => {
 
     return new Promise((resolve, reject) => {
 
-        // peilor campos que quiera en token
+        /** peilor campos que quiera en token */
         const payload = {
             uid
         };
@@ -23,7 +24,7 @@ const generarJWT = (uid) => {
     });
 
 };
-
+/** esportar los metodos declarados */
 module.exports = {
     generarJWT: generarJWT
 };
