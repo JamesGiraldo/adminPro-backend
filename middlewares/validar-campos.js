@@ -1,6 +1,7 @@
 const { response } = require('express');
 const { validationResult } = require('express-validator');
 
+/** valida todos los campos correspondientes a tal modelo */
 const validarCampos = (req, res = response, next) => {
 
     const errores = validationResult(req);
@@ -11,9 +12,11 @@ const validarCampos = (req, res = response, next) => {
             errors: errores.mapped()
         });
     }
+    /** continua o le da siguiente a la operación */
     next();
 };
 
+/** esporta los metodos realizados en el archivo */
 module.exports = {
     validarCampos: validarCampos
 };
