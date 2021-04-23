@@ -89,6 +89,7 @@ const crearUsuario = async(req, res = response) => {
     }
 };
 
+/** put usuario */
 const actualizarUsuario = async(req, res = response) => {
 
     /** TODO: Validar token y comprobar si es el usuario correcto. */
@@ -127,8 +128,19 @@ const actualizarUsuario = async(req, res = response) => {
                 });
             }
         }
-        /** regresando el email que se esta actualizando */
-        campos.email = email;
+
+        /** Si no es un usuario de google regresa el email actualizado, o sea que si actualiza los campos del usuarioDB y no de google */
+        if ( !usuarioDB.google ) {
+            /** regresando el email que se esta actualizando */
+            campos.email = email;            
+
+        /** Esto es si el usuario es de google = true validar que no pueda realizar cambios de su cuenta por este medio  */
+        } else if ( usuarioDB.email !== email ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Usuario de google, no puedes cambiar tu correo electronico, por este medio'
+            });
+        }
 
         /** actualiza el usuario y devuelve el nuevo valor */
         const ususarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
