@@ -3,7 +3,7 @@ const Medico = require('../models/medico');
 
 
 /** Get Medicos */
-const getMedicos = async(req, res = response) => {
+const getMedicos = async (req, res = response) => {
 
     /** para evitar posibles errores */
     try {
@@ -28,8 +28,37 @@ const getMedicos = async(req, res = response) => {
     }
 };
 
+/** Get Medico */
+const getMedicoById = async (req, res = response) => {
+
+    /** Obtener el id de los parametros del URL */
+    const id = req.params.id;
+
+    /** para evitar posibles errores */
+    try {
+        /** Consultar el Medico por id */
+        const medico = await Medico.findById( id )
+            .populate('usuario', 'nombre img')
+            .populate('hospital', 'nombre img');
+
+        /** responder con un ok */
+        res.json({
+            ok: true,
+            medico: medico
+        });
+
+        /** Si lapetición esta mal mostrar el error. */
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado.'
+        });
+    }
+};
+
 /** POST Medico */
-const crearMedico = async(req, res = response) => {
+const crearMedico = async (req, res = response) => {
 
     /** Obtener el id de los parametros  URL del token */
     const uid = req.uid;
@@ -62,7 +91,7 @@ const crearMedico = async(req, res = response) => {
 };
 
 /** PUT Medico */
-const actualizarMedico = async(req, res = response) => {
+const actualizarMedico = async (req, res = response) => {
 
     /** TODO: Validar token y comprobar si es el usuario correcto. */
 
@@ -73,7 +102,7 @@ const actualizarMedico = async(req, res = response) => {
     /** para evitar posibles errores */
     try {
         /** Consultar el medico por id */
-        const medicoDB = await Medico.findById( id );
+        const medicoDB = await Medico.findById(id);
 
         /** valdiar si el Medico no existe */
         if (!medicoDB) {
@@ -92,7 +121,7 @@ const actualizarMedico = async(req, res = response) => {
         };
 
         /** actualiza el medico y devuelve el nuevo valor */
-        const medicoActualizado = await Medico.findByIdAndUpdate( id, campos, { new: true });
+        const medicoActualizado = await Medico.findByIdAndUpdate(id, campos, { new: true });
 
         /**  cuando la respuesta es ok */
         res.json({
@@ -110,7 +139,7 @@ const actualizarMedico = async(req, res = response) => {
 };
 
 /** DELETE Medico */
-const borrarMedico = async(req, res = response) => {
+const borrarMedico = async (req, res = response) => {
 
     /** Obtener el valor de los parametros  URL */
     const id = req.params.id;
@@ -151,5 +180,6 @@ module.exports = {
     getMedicos: getMedicos,
     crearMedico: crearMedico,
     actualizarMedico: actualizarMedico,
-    borrarMedico: borrarMedico
+    borrarMedico: borrarMedico,
+    getMedicoById: getMedicoById
 };
