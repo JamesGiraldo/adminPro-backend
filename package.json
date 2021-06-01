@@ -4,7 +4,8 @@
     "description": "Backend",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js"
+        "start:dev": "nodmeon index.js",
+        "start": "node index.js"
     },
     "keywords": [],
     "author": "James Giraldo",
