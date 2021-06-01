@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const path = require('path');
+
 const express = require('express');
 const cors = require('cors');
 const colors = require('colors');
@@ -29,6 +31,11 @@ app.use('/api/medicos', require('./routes/medicos'));
 app.use('/api/todo', require('./routes/busquedas'));
 app.use('/api/upload', require('./routes/uploads'));
 app.use('/api/login', require('./routes/auth'));
+
+/** lo ultimo que si la ruta no corresponde a los path, redireccionar al index.html que es front como tal.  */
+app.get('*', ( req, res) => {
+    res.sendFile( path.resolve( __dirname, 'public/index.html' ) );
+});
 
 /** ejecutar servidor en el puerto que esta las variables de entorno */
 app.listen(process.env.PORT, () => {
