@@ -4,7 +4,7 @@ const path = require('path');
 
 const express = require('express');
 const cors = require('cors');
-
+const colors = require('colors');
 
 /** conección(configuración) de la base de datos */
 const { dbContection } = require('./database/config');
