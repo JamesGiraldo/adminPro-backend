@@ -31,7 +31,7 @@ router.put('/:id', [
 );
 
 router.delete('/:id', [
-    validarJWT, validarADMIN_ROLE
+        validarJWT, validarADMIN_ROLE
     ],
     borrarUsuario
 );

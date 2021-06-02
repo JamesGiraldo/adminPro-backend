@@ -4,7 +4,7 @@ const Usuario = require('../models/usuarios');
 const Hospital = require('../models/hospital');
 const Medico = require('../models/medico');
 
-/** Get Hospitales */
+/** Get TODO */
 const getBusqueda = async(req, res = response) => {
 
     /** obtener el valor de los parametros de la url */
@@ -36,7 +36,7 @@ const getBusqueda = async(req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -50,16 +50,16 @@ const getDocumentoColeccion = async(req, res = response) => {
     const regex = new RegExp(busqueda, 'i');
 
     let data = [];
-    /** para evitar posibles errores */
+    /** para selección de casos con el switch case */
     switch (tabla) {
         case 'medicos':
             data = await Medico.find({ nombre: regex })
-                .populate('usuario', 'nombre email')
-                .populate('hospital', 'nombre email');
+                .populate('usuario', 'nombre email img')
+                .populate('hospital', 'nombre img');
             break;
         case 'hospitales':
             data = await Hospital.find({ nombre: regex })
-                .populate('usuario', 'nombre email');
+                .populate('usuario', 'nombre img');
             break;
         case 'usuarios':
             data = await Usuario.find({ nombre: regex });

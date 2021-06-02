@@ -21,7 +21,7 @@ const getHospitales = async(req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -54,7 +54,7 @@ const crearHospital = async(req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado... revisar algo.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -114,7 +114,7 @@ const borrarHospital = async(req, res = response) => {
     const id = req.params.id;
     try {
         /** Consultar el hospital por id */
-        const hospitalDB = await Hospital.findById(id);
+        const hospitalDB = await Hospital.findById( id );
 
         /** valdiar si el hospital no existe */
         if (!hospitalDB) {
@@ -126,7 +126,7 @@ const borrarHospital = async(req, res = response) => {
         }
 
         /** Elimina el hospital referente al id */
-        await Hospital.findByIdAndDelete(id);
+        await Hospital.findByIdAndDelete( id );
 
         /** Si realizo correctamente la elimincación */
         res.json({
@@ -139,7 +139,7 @@ const borrarHospital = async(req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado...'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };

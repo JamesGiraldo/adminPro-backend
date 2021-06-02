@@ -23,7 +23,7 @@ const getMedicos = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -52,7 +52,7 @@ const getMedicoById = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -85,7 +85,7 @@ const crearMedico = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado... revisar algo.'
+            msg: 'Error inesperado... Hable con el administrador.'
         });
     }
 };
@@ -133,7 +133,7 @@ const actualizarMedico = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado.'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
@@ -170,7 +170,7 @@ const borrarMedico = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'Error inesperado...'
+            msg: 'Error inesperado, Hable con el administrador'
         });
     }
 };
